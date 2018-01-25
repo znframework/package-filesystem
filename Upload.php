@@ -82,7 +82,7 @@ class Upload implements UploadInterface
      */
     public function __construct()
     {
-        $this->getLang = Lang::default(new FilesystemDefaultLanguage)::select('Filesystem');
+        $this->getLang = Lang::default('ZN\Filesystem\FilesystemDefaultLanguage')::select('Filesystem');
     }
 
     /**
