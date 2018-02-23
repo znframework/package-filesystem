@@ -159,14 +159,7 @@ class Upload implements UploadInterface
      */
     public function encode(String $hash = 'md5') : Upload
     {
-        if( IS::hash($hash) )
-        {
-            $this->settings['encode'] = $hash;
-        }
-        else
-        {
-            $this->settings['encode'] = 'md5';
-        }
+        $this->settings['encode'] = $hash;
 
         return $this;
     }
@@ -439,15 +432,18 @@ class Upload implements UploadInterface
             $nm = Converter::slug($nm, true);
         }
 
-        if( $this->settings['encode'] ?? NULL )
+        if( empty($encryption) )
         {
-            $encryption = $this->_encode();
-        }
-        else
-        {
-            if( is_file($root.$nm) )
+            if( $this->settings['encode'] ?? NULL )
             {
                 $encryption = $this->_encode();
+            }
+            else
+            {
+                if( is_file($root.$nm) )
+                {
+                    $encryption = $this->_encode();
+                }
             }
         }
 
@@ -469,7 +465,7 @@ class Upload implements UploadInterface
         {
             return $this->extensionControl = $this->getLang['upload:extensionError'];
         }
-        elseif( ! empty($mimes) && ! in_array(Mime::type($nm), $mimes) )
+        elseif( ! empty($mimes) && ! in_array(Mime::type($src), $mimes) )
         {
             return $this->extensionControl = $this->getLang['upload:mimeError'];
         }
