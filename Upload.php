@@ -122,11 +122,11 @@ class Upload implements UploadInterface
     /**
      * Sets convert name
      * 
-     * @param bool $convert = true
+     * @param string|bool $convert = true
      * 
      * @return Upload
      */
-    public function convertName(Bool $convert = true) : Upload
+    public function convertName($convert = true) : Upload
     {
         $this->settings['convertName'] = $convert;
 
@@ -181,11 +181,11 @@ class Upload implements UploadInterface
     /**
      * Sets maxsize
      * 
-     * @param int $maxsize = 0
+     * @param string|int $maxsize = 0
      * 
      * @return Upload
      */
-    public function maxsize(Int $maxsize = 0) : Upload
+    public function maxsize($maxsize = 0) : Upload
     {
         $this->settings['maxsize'] = $maxsize;
 
@@ -426,10 +426,17 @@ class Upload implements UploadInterface
             return ! $this->manuelError = 4;
         }   
         
-        if( ($this->settings['convertName'] ?? NULL) === true )
+        if( $convertName = ($this->settings['convertName'] ?? NULL) )
         {
             # 5.4.3[edited] 
-            $nm = Converter::slug($nm, true);
+            if( $convertName === true )
+            {
+                $nm = Converter::slug($nm, true);
+            }
+            else
+            {
+                $nm = $convertName;
+            }
         }
 
         if( empty($encryption) )
@@ -447,8 +454,8 @@ class Upload implements UploadInterface
             }
         }
 
-        $encryptionName     = $encryption . $nm;
-        $target             = $root . $encryptionName;
+        $encryptionName = $encryption . $nm;
+        $target         = $root . $encryptionName;
 
         if( is_array($_FILES[$this->file]['name']) )
         {
@@ -469,7 +476,7 @@ class Upload implements UploadInterface
         {
             return $this->extensionControl = $this->getLang['upload:mimeError'];
         }
-        elseif( ! empty($maxsize = ($this->settings['maxsize'] ?? NULL)) && $maxsize < filesize($src) )
+        elseif( ! empty($maxsize = Converter::toBytes($this->settings['maxsize'] ?? 0)) && $maxsize < filesize($src) )
         {
             return $this->manuelError = 10;
         }

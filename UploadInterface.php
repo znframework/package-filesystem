@@ -41,11 +41,11 @@ interface UploadInterface
     /**
      * Sets convert name
      * 
-     * @param bool $convert = true
+     * @param string|bool $convert = true
      * 
      * @return Upload
      */
-    public function convertName(Bool $convert = true) : Upload;
+    public function convertName($convert = true) : Upload;
 
     /**
      * Defines encode type
@@ -68,11 +68,11 @@ interface UploadInterface
     /**
      * Sets maxsize
      * 
-     * @param int $maxsize = 0
+     * @param string|int $maxsize = 0
      * 
      * @return Upload
      */
-    public function maxsize(Int $maxsize = 0) : Upload;
+    public function maxsize($maxsize = 0) : Upload;
 
     /**
      * Sets encode length
