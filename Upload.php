@@ -417,6 +417,14 @@ class Upload implements UploadInterface
     }
 
     /**
+     * protected get file extension
+     */
+    protected function getFileExtension($name)
+    {
+        return (($ext = pathinfo($name, PATHINFO_EXTENSION)) ? '.' . $ext : NULL);
+    }
+
+    /**
      * Protected Upload
      */
     protected function _upload($rootDir, $root, $src, $nm, $extensions, $mimes, $encryption)
@@ -435,7 +443,7 @@ class Upload implements UploadInterface
             }
             else
             {
-                $nm = $convertName;
+                $nm = $convertName . $this->getFileExtension($nm);
             }
         }
 
@@ -468,7 +476,7 @@ class Upload implements UploadInterface
             $this->path       = $target;
         }
 
-        if( ! empty($extensions) && ! in_array(Filesystem\Extension::get($nm), $extensions) )
+        if( ! empty($extensions) && ! in_array(pathinfo($nm, PATHINFO_EXTENSION), $extensions) )
         {
             return $this->extensionControl = $this->getLang['upload:extensionError'];
         }
