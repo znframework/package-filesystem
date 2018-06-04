@@ -27,7 +27,17 @@ Basic level usage is shown below.
 
 ZN\ZN::run();
 
-Output::writeLine(Date::standart());
-Output::writeLine(Time::current());
-Output::writeLine(Date::calculate('{year}-{monthNumber}-{dayNumber}', '30 day'));
+use ZN\Request\Post;
+
+if( Post::uploadButton() )
+{
+    Upload::mimes('image/jpeg', 'image/png')->start('uploadFile', 'upload');
+
+    output( Upload::error() );
+}
+
+echo Form::enctype('multipart')->open('form');
+echo Form::file('uploadFile');
+echo Form::submit('uploadButton', 'Upload');
+echo Form::close();
 ```
