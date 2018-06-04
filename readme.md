@@ -38,10 +38,6 @@ Click for <a href="https://docs.znframework.com/dosya-sistemi/dizin-kutuphanesi"
 </p>
 
 ```php
-<?php require 'vendor/autoload.php';
-
-ZN\ZN::run();
-
 Folder::create('Example');
 
 Folder::delete('Example');
@@ -53,10 +49,6 @@ Click for <a href="https://docs.znframework.com/dosya-sistemi/yukleme-kutuphanes
 </p>
 
 ```php
-<?php require 'vendor/autoload.php';
-
-ZN\ZN::run();
-
 use ZN\Request\Post;
 
 if( Post::uploadButton() )
