@@ -12,10 +12,10 @@ You only need to run the following code for the installation.
 composer require znframework/package-filesystem
 ```
 
-<h3>Example Usage</h3>
-<p>
-Basic level usage is shown below.
-</p>
+<h3>Supported Libraries</h3>
+* File
+* Folder
+* Upload
 
 <h3>Documentation For File Library</h3>
 <p>
