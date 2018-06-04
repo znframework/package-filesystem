@@ -19,7 +19,7 @@ composer require znframework/package-filesystem
     <li><a href="#upload">Upload</a></li>
 </ul>
 
-<h3>Documentation For File Library</h3>
+<h3>Folder Library</h3>
 <p id="file">
 Click for <a href="https://docs.znframework.com/dosya-sistemi/dosya-kutuphanesi">documentation</a> of your library.
 </p>
@@ -34,7 +34,7 @@ File::write('example.txt', 'Example');
 echo File::read('example.txt');
 ```
 
-<h3>Documentation For Folder Library</h3>
+<h3>Folder Library</h3>
 <p id="folder">
 Click for <a href="https://docs.znframework.com/dosya-sistemi/dizin-kutuphanesi">documentation</a> of your library.
 </p>
@@ -45,7 +45,7 @@ Folder::create('Example');
 Folder::delete('Example');
 ```
 
-<h3>Documentation For Upload Library</h3>
+<h3>Upload Library</h3>
 <p id="upload">
 Click for <a href="https://docs.znframework.com/dosya-sistemi/yukleme-kutuphanesi">documentation</a> of your library.
 </p>
