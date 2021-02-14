@@ -274,30 +274,32 @@ class Info
             }
             else
             {
-                $size += $fileSize;
+                $size += $fileSize; 
             }
         }
 
-        // BYTES
+        # BYTES
         if( $type === "b" )
         {
             return  $size;
         }
-        // KILO BYTES
+        # KILO BYTES
         if( $type === "kb" )
         {
             return round($size / 1024, $decimal);
         }
-        // MEGA BYTES
+        # MEGA BYTES
         if( $type === "mb" )
         {
             return round($size / (1024 * 1024), $decimal);
         }
-        // GIGA BYTES
+        # GIGA BYTES
         if( $type === "gb" )
         {
             return round($size / (1024 * 1024 * 1024), $decimal);
         }
+
+        return $size;  
     }
 
     /**
@@ -368,7 +370,7 @@ class Info
         }
         else
         {
-            return $owner;
+            return $owner; 
         }
     }
 
@@ -396,7 +398,7 @@ class Info
         }
         else
         {
-            return $group;
+            return $group; 
         }
     }
 
@@ -574,7 +576,7 @@ class Info
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            throw new Exception\UndefinedFunctionException(NULL, get_called_class().'::'.$type.'()');
+            throw new Exception\UndefinedFunctionException(NULL, get_called_class().'::'.$type.'()'); 
         }
 
         if( $validType($file) )
@@ -582,6 +584,6 @@ class Info
             return true;
         }
 
-        return false;
+        return false; 
     }
 }
