@@ -12,6 +12,7 @@
 use ZN\IS;
 use ZN\Base;
 use ZN\Lang;
+use ZN\Inclusion;
 use ZN\Helpers\Mime;
 use ZN\Request\Method;
 use ZN\DataTypes\Arrays;
@@ -94,6 +95,26 @@ class Upload implements UploadInterface
     }
 
     /**
+     * Uplaod progress
+     * 
+     * @param string   $selector
+     * @param string   $source
+     * @param callable $callable
+     * 
+     * @return string
+     */
+    public function progress(string $selector, string $source, callable $callable) : string
+    {
+        return Inclusion\View::use('upload-progress', 
+        [
+            'selector' => $selector,
+            'source'   => $source,
+            'callable' => $callable
+
+        ], true, __DIR__ . '/Resources/');
+    }
+
+    /**
      * Is file input name
      * 
      * @param string $name
@@ -106,7 +127,7 @@ class Upload implements UploadInterface
 
         if( is_array($file) )
         {
-            return (bool) $file[0];
+            return (bool) $file[0]; // @codeCoverageIgnore
         }
 
         return (bool) Method::files($name);
@@ -351,12 +372,12 @@ class Upload implements UploadInterface
         }
         else
         {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         if( ! empty($values[$info]) )
         {
-            return $values[$info];
+            return $values[$info]; // @codeCoverageIgnore
         }
 
         return (object) $values;
@@ -373,7 +394,7 @@ class Upload implements UploadInterface
 
         if( $errorNo === NULL )
         {
-            return $this->getLang['upload:unknownError'];
+            return $this->getLang['upload:unknownError']; // @codeCoverageIgnore
         }
 
         if( is_array($errorNo) )
@@ -384,8 +405,8 @@ class Upload implements UploadInterface
             {
                 if( ! empty($no) )
                 {
-                    $errno = $no;
-                    break;
+                    $errno = $no; // @codeCoverageIgnore
+                    break;        // @codeCoverageIgnore
                 }
             }
 
@@ -422,11 +443,11 @@ class Upload implements UploadInterface
             {
                 return false;
             }
-            return $this->errors[$errorNo];
+            return $this->errors[$errorNo]; // @codeCoverageIgnore
         }
         else
         {
-            return $lang['upload:unknownError'];
+            return $lang['upload:unknownError']; // @codeCoverageIgnore
         }
     }
 
@@ -458,7 +479,7 @@ class Upload implements UploadInterface
     {
         if( empty($nm) )
         {
-            return ! $this->manuelError = 4;
+            return ! $this->manuelError = 4; // @codeCoverageIgnore
         }   
         
         if( $convertName = ($this->settings['convertName'] ?? NULL) )
@@ -484,7 +505,7 @@ class Upload implements UploadInterface
             {
                 if( is_file($root.$nm) )
                 {
-                    $encryption = $this->_encode();
+                    $encryption = $this->_encode(); // @codeCoverageIgnore
                 }
             }
         }
@@ -523,7 +544,7 @@ class Upload implements UploadInterface
             }
             else
             {
-                return ! $this->manuelError = 9;
+                return ! $this->manuelError = 9; // @codeCoverageIgnore
             }
         }
     }
