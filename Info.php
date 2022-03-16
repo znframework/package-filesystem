@@ -184,7 +184,7 @@ class Info
      */
     public static function relativepath(string $string) : string
     {
-        return str_replace(REAL_BASE_DIR, NULL, self::originpath($string));
+        return str_replace(REAL_BASE_DIR, '', self::originpath($string));
     }
 
     /**
@@ -230,7 +230,7 @@ class Info
             'readable'   => is_readable($file),
             'writable'   => is_writable($file),
             'executable' => is_executable($file),
-            'permission' => fileperms($file)
+            'permission' => self::fileperm($file)
         ];
     }
 
@@ -274,7 +274,7 @@ class Info
             }
             else
             {
-                $size += $fileSize; 
+                $size += $fileSize; // @codeCoverageIgnore
             }
         }
 
@@ -299,7 +299,7 @@ class Info
             return round($size / (1024 * 1024 * 1024), $decimal);
         }
 
-        return $size;  
+        return $size;  // @codeCoverageIgnore
     }
 
     /**
@@ -370,7 +370,7 @@ class Info
         }
         else
         {
-            return $owner; 
+            return $owner; // @codeCoverageIgnore
         }
     }
 
@@ -398,7 +398,7 @@ class Info
         }
         else
         {
-            return $group; 
+            return $group; // @codeCoverageIgnore
         }
     }
 
@@ -493,13 +493,15 @@ class Info
 
             foreach( $files as $file )
             {
-                $filesInfo[$file]['basename']   = self::pathInfo($dir.$file, 'basename');
-                $filesInfo[$file]['size']       = filesize($dir.$file);
-                $filesInfo[$file]['date']       = filemtime($dir.$file);
-                $filesInfo[$file]['readable']   = is_readable($dir.$file);
-                $filesInfo[$file]['writable']   = is_writable($dir.$file);
-                $filesInfo[$file]['executable'] = is_executable($dir.$file);
-                $filesInfo[$file]['permission'] = fileperms($dir.$file);
+                $path = $dir . $file;
+
+                $filesInfo[$file]['basename']   = self::pathInfo($path, 'basename');
+                $filesInfo[$file]['size']       = filesize($path);
+                $filesInfo[$file]['date']       = filemtime($path);
+                $filesInfo[$file]['readable']   = is_readable($path);
+                $filesInfo[$file]['writable']   = is_writable($path);
+                $filesInfo[$file]['executable'] = is_executable($path);
+                $filesInfo[$file]['permission'] = self::fileperm($path);
             }
 
             return $filesInfo;
@@ -576,7 +578,7 @@ class Info
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            throw new Exception\UndefinedFunctionException(NULL, get_called_class().'::'.$type.'()'); 
+            throw new Exception\UndefinedFunctionException(NULL, get_called_class().'::'.$type.'()'); // @codeCoverageIgnore
         }
 
         if( $validType($file) )
@@ -584,6 +586,14 @@ class Info
             return true;
         }
 
-        return false; 
+        return false; // @codeCoverageIgnore
+    }
+
+    /**
+     * Protected file permission
+     */
+    protected static function fileperm($file)
+    {
+        return substr(sprintf('%o', fileperms($file)), -4);
     }
 }
