@@ -156,7 +156,7 @@ class Forge
 
         if( file_exists($zipPath) )
         {
-            unlink($zipPath);
+            unlink($zipPath); // @codeCoverageIgnore
         }
 
         if( ! is_dir($pathDirName = Info::pathInfo($path, 'dirname')) )
@@ -173,7 +173,7 @@ class Forge
             if( is_numeric($key) )
             {
                 $file = $val;
-                $fileName = NULL;
+                $fileName = '';
             }
             else
             {
